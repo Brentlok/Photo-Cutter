@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { Button, InputRange, PhotoCutter } from "~/bits";
 import { Coordinates } from "~/types";
+import { getCroppedImage } from "~/utils";
 
 export const PhotoEditor = () => {
+    const [img, setImg] = useState('/assets/mock.png');
     const [zoom, setZoom] = useState(0);
     const [coordinates, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
 
-    const clearCoordinates = () => {
+    const clear = () => {
         setCoordinates({ x: 0, y: 0 });
         setZoom(0);
+    }
+
+    const save = async () => {
+        const url = await getCroppedImage(img, 320, 320, zoom, coordinates);
+        setImg(url);
     }
 
     return (
@@ -21,9 +28,11 @@ export const PhotoEditor = () => {
                 type="primary"
             />
             <PhotoCutter
+                img={img}
                 zoom={zoom}
                 coordinates={coordinates}
                 setCoordinates={setCoordinates}
+                onImgLoad={clear}
             />
             <InputRange
                 value={zoom}
@@ -34,12 +43,12 @@ export const PhotoEditor = () => {
             />
             <div className="w-full flex justify-center gap-4">
                 <Button
-                    action={clearCoordinates}
+                    action={clear}
                     text="Cancel"
                     type="primary"
                 />
                 <Button
-                    action={() => { }}
+                    action={save}
                     text="Save changes"
                     type="secondary"
                 />

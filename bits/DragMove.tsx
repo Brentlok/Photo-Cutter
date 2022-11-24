@@ -1,9 +1,10 @@
-import { PropsWithChildren, useState, PointerEvent } from "react"
+import { PropsWithChildren, useState, PointerEvent, SetStateAction, Dispatch } from "react"
 
 type Event = PointerEvent<HTMLDivElement>;
 
 type Props = PropsWithChildren<{
     onDragMove: (e: Event) => void;
+    setRef?: Dispatch<SetStateAction<void>>;
 }>;
 
 export const DragMove = (props: Props) => {

@@ -10,7 +10,13 @@ type Props = {
 
 export const InputRange = (props: Props) => {
     const handleChange = (direction: -1 | 1) => () => {
-        props.setValue(props.value + (direction * props.step));
+        const newVal = props.value + (direction * props.step);
+
+        if (newVal > props.max || newVal < props.min) {
+            return;
+        }
+
+        props.setValue(newVal);
     }
 
     return (
