@@ -4,19 +4,28 @@ import { Coordinates } from "~/types";
 import { getCroppedImage } from "~/utils";
 
 export const PhotoEditor = () => {
-    const [img, setImg] = useState('/assets/mock.png');
+    // simulate an API with useState
+    const [savedImg, setSavedImg] = useState('/assets/mock.png');
+    const [img, setImg] = useState(savedImg);
     const [zoom, setZoom] = useState(0);
     const [coordinates, setCoordinates] = useState<Coordinates>({ x: 0, y: 0 });
     const fileRef = useRef<HTMLInputElement>(null);
 
-    const clear = () => {
+    const clear = (withoutImg = true) => {
         setCoordinates({ x: 0, y: 0 });
         setZoom(0);
+
+        if (withoutImg) {
+            return;
+        }
+
+        setImg(savedImg);
     }
 
     const save = async () => {
         const url = await getCroppedImage(img, 320, 320, zoom, coordinates);
         setImg(url);
+        setSavedImg(url);
     }
 
     const simulateFileUpload = () => {
@@ -70,7 +79,7 @@ export const PhotoEditor = () => {
             />
             <div className="w-full flex justify-center gap-4">
                 <Button
-                    action={clear}
+                    action={() => clear(false)}
                     text="Cancel"
                     type="primary"
                 />

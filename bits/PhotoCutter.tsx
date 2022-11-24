@@ -53,6 +53,7 @@ export const PhotoCutter = (props: Props) => {
                         alt=''
                         width={20}
                         height={20}
+                        className="w-auto h-auto"
                     />
                     <span className="text-white">
                         Drag and match
