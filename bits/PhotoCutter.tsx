@@ -14,7 +14,6 @@ type Props = {
 export const PhotoCutter = (props: Props) => {
     const { coordinates, setCoordinates, zoom } = props;
     const scaleRef = useRef<HTMLDivElement>(null);
-    const [setIsDragging, setRef] = useState<Dispatch<SetStateAction<boolean>>>();
 
     useEffect(() => {
         if (!scaleRef.current) {
@@ -38,7 +37,6 @@ export const PhotoCutter = (props: Props) => {
             newCoordinates.y <= -320 ||
             newCoordinates.y >= 320
         ) {
-            setIsDragging?.(false);
             return;
         }
 
