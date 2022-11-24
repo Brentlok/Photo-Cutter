@@ -10,4 +10,17 @@ body {
     .h-page {
         height: 100vh;
     }
+
+    .border-1 {
+        border-width: 1px;
+    }
+
+    .button {
+        @apply bg-white text-black border-black;
+        min-width: 170px;
+    }
+
+    .button[data-type='secondary'] {
+        @apply bg-orange-500 border-transparent text-white;
+    }
 }
